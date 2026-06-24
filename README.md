@@ -151,72 +151,74 @@ Usage Guide
 Main Dashboard (Popup):
 
 Statistics Cards:
-Total Blocked: Lifetime count of blocked tracker requests
-Today Blocked: Tracker requests blocked since midnight
-Displays if site is whitelisted/blacklisted
-Quick whitelist/remove buttons
+Total Blocked: Lifetime count of blocked tracker requests,
+Today Blocked: Tracker requests blocked since midnight,
+Displays if site is whitelisted/blacklisted,
+Quick whitelist/remove buttons,
 Click Settings for detailed analytics
 
 Action Buttons:
-Settings: Open detailed settings and analytics page
-Reset Statistics: Clear all statistics (confirmation required)
+Settings: Open detailed settings and analytics page,
+Reset Statistics: Clear all statistics (confirmation required),
 Settings Page
 
 Whitelist Tab:
-Add domains where tracking protection should be disabled
-Useful for your own websites or trusted services
+Add domains where tracking protection should be disabled,
+Useful for your own websites or trusted services,
 Shows date added for each domain
 
 Blacklist Tab:
-Add custom tracking domains to block
-Rules apply immediately
+Add custom tracking domains to block,
+Rules apply immediately,
 Supports any domain format
 
 Analytics Tab:
-View comprehensive statistics
-Top 20 most blocked trackers with counts
-Total and unique tracker information
+View comprehensive statistics,
+Top 20 most blocked trackers with counts,
+Total and unique tracker information,
 Refresh automatically every 5 seconds
 
 Import/Export Tab:
-Export statistics as JSON
-Export/Import whitelist and blacklist
+Export statistics as JSON,
+Export/Import whitelist and blacklist,
 Clear all data option (warning: irreversible)
 
 About Tab:
-Extension version information
-Feature overview
-List of blocked tracker domains
+Extension version information,
+Feature overview,
+List of blocked tracker domains,
 Privacy policy and permissions info
 
 UI/UX Features:
-Popup Interface
-Mini Dashboard: Shows key statistics at a glance
-Real-time Updates: Statistics refresh every 2 seconds
-Smooth Animations: Professional transitions and effects
+
+Popup Interface:
+
+Mini Dashboard: Shows key statistics at a glance,
+Real-time Updates: Statistics refresh every 2 seconds,
+Smooth Animations: Professional transitions and effects,
 Dark Mode: Easy on the eyes, cybersecurity aesthetic
 
 Settings Interface:
-Tab Navigation: Organized sections for different settings
-Sidebar Menu: Quick access to different sections
-Responsive Layout: Works on all screen sizes
-Form Validation: Errors clearly communicated
+
+Tab Navigation: Organized sections for different settings,
+Sidebar Menu: Quick access to different sections,
+Responsive Layout: Works on all screen sizes,
+Form Validation: Errors clearly communicated,
 Notification System: Toast notifications for all actions
 
 Performance:
-Memory Optimization
-Efficient storage structure
-Automatic cleanup of old data
-Limits on history per tracker (last 100 instances)
-Minimal background process overhead
-Speed
-Blocks tracking requests before they reach servers
-<1ms per request processing
-No noticeable impact on browsing speed
+Memory Optimization,
+Efficient storage structure,
+Automatic cleanup of old data,
+Limits on history per tracker (last 100 instances),
+Minimal background process overhead,
+Blocks tracking requests before they reach servers,
+<1ms per request processing,
+No noticeable impact on browsing speed,
 Optimized for thousands of tracker entries
 
-Update/Maintenance
-Updating Tracker List
+Update/Maintenance:
+Updating Tracker List.
 The extension automatically loads trackers from `trackers.json` on startup. To update:
 Modify `trackers.json` with new domains
 Reload extension in `chrome://extensions`
@@ -263,8 +265,9 @@ Close popup and reopen
 Check Settings → Analytics
 May need to refresh the website
 
-Firefox Support
+# Firefox Support
 The extension is designed to be easily portable to Firefox:
+
 Modify `manifest.json` for Firefox format
 Update `background.js` for WebExtensions API
 Test privacy features for Firefox
@@ -274,7 +277,9 @@ Example Use Cases:
 
 Use Case 1: Privacy-Conscious User
 Maria wants to protect her privacy while browsing. She installs Tracker Blocker and can see 50+ trackers blocked per website. Her personal data stays private.
+
 Use Case 2: Website Developer
 John runs a website and wants to see how much tracking occurs. He adds his domain to whitelist so tracking on his site isn't blocked, allowing him to develop responsibly.
+
 Use Case 3: Corporate Deployment
 A company installs Tracker Blocker on all employee computers to prevent corporate espionage through browser tracking.
