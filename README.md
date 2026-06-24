@@ -1,9 +1,12 @@
 # Tracker-Blocker-Extension
 A powerful, privacy-focused browser extension that blocks known tracking scripts and domains in real-time. Tracker Blocker helps protect your online privacy by preventing advertisers, analytics services, and other trackers from monitoring your browsing activity.
 
-🛡️ Features:
+Features:
+
 Core Blocking Features:
+
 Real-time Tracker Detection: Blocks 200+ known tracking domains including:
+
 Google Analytics (`google-analytics.com`, `googletagmanager.com`)
 DoubleClick (`doubleclick.net`, `pagead2.googlesyndication.com`)
 Facebook Trackers (`facebook.net`, `connect.facebook.net`)
@@ -11,37 +14,55 @@ Yahoo Ads (`ads.yahoo.com`)
 And many more
 
 Multiple Request Types: Blocks tracking through:
-Script files
-XHR/Fetch requests
-Image beacons/pixels
-Any tracking attempt
+
+Script files,
+XHR/Fetch requests,
+Image beacons/pixels,
+Any tracking attempt.
 
 Statistics & Monitoring:
+
 📊 Real-time Statistics: See live count of blocked trackers
+
 📈 Daily Statistics: Track blocked requests by day
+
 🎯 Top Trackers List: View the most blocked tracking domains
+
 📉 Historical Data: Analyze tracking patterns over time
 
 Customization:
+
 ✅ Whitelist Domains: Disable tracking protection on specific sites (e.g., your own website)
+
 ❌ Blacklist Domains: Add custom tracking domains to block
+
 💾 Import/Export: Backup and restore your settings as JSON files
+
 🔄 Data Management: Clear statistics or restore from backup
 
 UI & UX:
+
 🎨 Modern Dark Theme: Eye-friendly cybersecurity aesthetic
+
 ⚡ Real-time Badge: Extension icon shows current blocked tracker count
+
 📱 Responsive Design: Works seamlessly on all screen sizes
+
 🔔 Notifications: Alerts when many trackers are blocked on a page
 
 📋 Requirements:
+
 Browsers Supported: Chrome, Edge, Brave, and other Chromium-based browsers
+
 Manifest Version: V3 (latest security standard)
+
 Permissions: Storage, Declarative Net Request, Tabs
 
-🚀 Installation:
+Installation:
+
 Quick Start
 Download or Clone the Repository
+
 ```bash
    git clone https://github.com/yourusername/tracker-blocker.git
    cd tracker-blocker
@@ -66,6 +87,7 @@ Installation in Other Browsers
 Edge:
 Navigate to: `edge://extensions/`
 Follow the same steps as Chrome
+
 Brave:
 Navigate to: `brave://extensions/`
 Follow the same steps as Chrome
@@ -87,32 +109,37 @@ tracker-blocker/
 └── README.md                  # This file
 ```
 
-🎯 How It Works:
+How It Works:
 
 Request Blocking
-Browser makes a request to any website
-Tracker Blocker's service worker checks the URL against the tracking domains list
-If it matches a known tracker, the request is blocked immediately
-User browsing experience continues uninterrupted
+
+Browser makes a request to any website,
+Tracker Blocker's service worker checks the URL against the tracking domains list,
+If it matches a known tracker, the request is blocked immediately,
+User browsing experience continues uninterrupted.
+
 Statistics Tracking
-Each blocked request is recorded in the background service worker
-Data includes: tracker domain, timestamp, and page URL
-Statistics are stored locally in browser storage (never sent to servers)
-Real-time badge updates show total blocked today
+
+Each blocked request is recorded in the background service worker,
+Data includes: tracker domain, timestamp, and page URL,
+Statistics are stored locally in browser storage (never sent to servers),
+Real-time badge updates show total blocked today.
 
 Whitelist/Blacklist System
-Whitelist: Domains on this list are excluded from tracking protection (useful for your own sites)
-Blacklist: Additional domains to block beyond the default list
-Both are applied immediately without requiring extension reload
 
-🔒 Privacy & Security
+Whitelist: Domains on this list are excluded from tracking protection (useful for your own sites),
+Blacklist: Additional domains to block beyond the default list,
+Both are applied immediately without requiring extension reload.
+
+Privacy & Security:
 Your Privacy is Protected.
-Local Storage Only: All data stored locally on your device
-No Server Communication: Tracker Blocker never sends your data to external servers
-No Logging: Your browsing history is not recorded or analyzed
-Open Source Ready: Code is transparent and auditable 
 
-Security Practices
+Local Storage Only: All data stored locally on your device,
+No Server Communication: Tracker Blocker never sends your data to external servers,
+No Logging: Your browsing history is not recorded or analyzed,
+Open Source Ready: Code is transparent and auditable.
+
+# Security Practices:
 ✓ Manifest V3 compliance (latest security standard)
 ✓ Content Security Policy (CSP) compliance
 ✓ No unsafe eval() or dynamic code execution
@@ -120,7 +147,7 @@ Security Practices
 ✓ XSS protection measures
 ✓ CSRF token handling where applicable
 
-📊 Usage Guide
+Usage Guide
 Main Dashboard (Popup):
 
 Statistics Cards:
@@ -162,7 +189,7 @@ Feature overview
 List of blocked tracker domains
 Privacy policy and permissions info
 
-🎨 UI/UX Features:
+UI/UX Features:
 Popup Interface
 Mini Dashboard: Shows key statistics at a glance
 Real-time Updates: Statistics refresh every 2 seconds
@@ -188,7 +215,7 @@ Blocks tracking requests before they reach servers
 No noticeable impact on browsing speed
 Optimized for thousands of tracker entries
 
-🔄 Update/Maintenance
+Update/Maintenance
 Updating Tracker List
 The extension automatically loads trackers from `trackers.json` on startup. To update:
 Modify `trackers.json` with new domains
@@ -243,7 +270,7 @@ Update `background.js` for WebExtensions API
 Test privacy features for Firefox
 Submit to Firefox Add-ons store
 
-📝 Example Use Cases:
+Example Use Cases:
 
 Use Case 1: Privacy-Conscious User
 Maria wants to protect her privacy while browsing. She installs Tracker Blocker and can see 50+ trackers blocked per website. Her personal data stays private.
