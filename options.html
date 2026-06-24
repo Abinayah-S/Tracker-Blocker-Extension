@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Privacy Shield - Settings</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 200px;
+      background: #1e293b;
+      border-right: 1px solid #334155;
+      padding: 20px 0;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+    .sidebar-brand {
+      padding: 0 20px 20px;
+      border-bottom: 1px solid #334155;
+      font-size: 14px;
+      font-weight: 700;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      font-size: 13px;
+      color: #94a3b8;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    .nav-item:hover { background: #0f172a; color: #f1f5f9; }
+    .nav-item.active { background: #0f172a; color: #38bdf8; border-left-color: #38bdf8; font-weight: 600; }
+    .nav-icon { font-size: 15px; }
+
+    /* ── MAIN CONTENT ── */
+    .main { flex: 1; padding: 32px; overflow-y: auto; }
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 6px;
+    }
+    .page-subtitle {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 28px;
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    /* ── STATS GRID ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+    .stat-box {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-num { font-size: 32px; font-weight: 800; color: #38bdf8; }
+    .stat-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+    /* ── TOP TRACKERS TABLE ── */
+    .tracker-table { width: 100%; border-collapse: collapse; }
+    .tracker-table th {
+      text-align: left;
+      font-size: 11px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 8px 12px;
+      border-bottom: 1px solid #334155;
+    }
+    .tracker-table td {
+      padding: 10px 12px;
+      font-size: 13px;
+      border-bottom: 1px solid #1e293b;
+      color: #cbd5e1;
+    }
+    .tracker-table tr:hover td { background: #0f172a; }
+    .tracker-count { color: #ef4444; font-weight: 700; }
+
+    /* ── INPUT & BUTTONS ── */
+    .input-row { display: flex; gap: 10px; align-items: center; }
+    .text-input {
+      flex: 1;
+      padding: 10px 14px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      color: #f1f5f9;
+      font-size: 13px;
+      outline: none;
+    }
+    .text-input:focus { border-color: #38bdf8; }
+    .text-input::placeholder { color: #475569; }
+    .hint { font-size: 11px; color: #475569; margin-top: 6px; }
+
+    .btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn-primary { background: #38bdf8; color: #0f172a; }
+    .btn-danger { background: #ef4444; color: #fff; }
+    .btn-neutral { background: #334155; color: #f1f5f9; }
+    .btn-success { background: #10b981; color: #fff; }
+
+    /* ── DOMAIN LIST ── */
+    .domain-list { margin-top: 14px; max-height: 250px; overflow-y: auto; }
+    .domain-list::-webkit-scrollbar { width: 4px; }
+    .domain-list::-webkit-scrollbar-thumb { background: #334155; border-radius: 2px; }
+    .domain-entry {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 12px;
+      background: #0f172a;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      font-size: 13px;
+      border: 1px solid #1e293b;
+    }
+    .domain-entry .domain-name { color: #cbd5e1; }
+    .domain-entry .added-date { font-size: 11px; color: #475569; }
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 11px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-sm-danger { background: #7f1d1d; color: #fca5a5; }
+    .btn-sm-danger:hover { background: #ef4444; color: #fff; }
+
+    /* ── IMPORT/EXPORT ── */
+    .export-btns { display: flex; flex-direction: column; gap: 10px; }
+    .export-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      color: #f1f5f9;
+      font-size: 13px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .export-btn:hover { border-color: #38bdf8; }
+    .import-zone {
+      border: 2px dashed #334155;
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 14px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .import-zone:hover { border-color: #38bdf8; }
+    .import-zone label { cursor: pointer; font-size: 13px; color: #64748b; }
+    #importFileInput { display: none; }
+
+    .danger-card {
+      border-color: #7f1d1d;
+      background: #1c0a0a;
+    }
+    .danger-card .card-title { color: #ef4444; }
+
+    .empty-state { color: #475569; font-size: 13px; text-align: center; padding: 16px; }
+
+    /* ── ABOUT ── */
+    .about-feature { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px; font-size: 13px; color: #cbd5e1; }
+    .about-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+    .tracker-tag {
+      display: inline-block;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: #94a3b8;
+      margin: 3px;
+      font-family: monospace;
+    }
+    .perm-item { margin-bottom: 8px; font-size: 13px; color: #94a3b8; }
+    .perm-name { color: #38bdf8; font-weight: 600; font-family: monospace; }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 12px 18px;
+      font-size: 13px;
+      color: #f1f5f9;
+      display: none;
+      z-index: 999;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .toast.show { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+  <nav class="sidebar">
+    <div class="sidebar-brand">🛡️ Privacy Shield</div>
+    <div class="nav-item active" data-page="whitelist"><span class="nav-icon">✅</span> Whitelist</div>
+    <div class="nav-item" data-page="blacklist"><span class="nav-icon">❌</span> Blacklist</div>
+    <div class="nav-item" data-page="analytics"><span class="nav-icon">📊</span> Analytics</div>
+    <div class="nav-item" data-page="importexport"><span class="nav-icon">📦</span> Import/Export</div>
+    <div class="nav-item" data-page="about"><span class="nav-icon">ℹ️</span> About</div>
+  </nav>
+
+  <main class="main">
+
+    <!-- WHITELIST PAGE -->
+    <div class="page active" id="page-whitelist">
+      <div class="page-title">Whitelisted Domains</div>
+      <div class="page-subtitle">Trackers will not be blocked on these domains</div>
+      <div class="card">
+        <div class="card-title">Add Domain to Whitelist</div>
+        <div class="input-row">
+          <input class="text-input" id="wlInput" type="text" placeholder="e.g., example.com">
+          <button class="btn btn-primary" id="wlAddBtn">ADD</button>
+        </div>
+        <div class="hint">Enter domain without protocol (e.g., example.com, not https://example.com)</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Current Whitelist</div>
+        <div class="domain-list" id="wlList"><div class="empty-state">No domains whitelisted yet.</div></div>
+      </div>
+    </div>
+
+    <!-- BLACKLIST PAGE -->
+    <div class="page" id="page-blacklist">
+      <div class="page-title">Custom Tracking Domains</div>
+      <div class="page-subtitle">These custom domains will be blocked in addition to known trackers</div>
+      <div class="card">
+        <div class="card-title">Add Tracking Domain</div>
+        <div class="input-row">
+          <input class="text-input" id="blInput" type="text" placeholder="e.g., mytracker.io">
+          <button class="btn btn-danger" id="blAddBtn">ADD</button>
+        </div>
+        <div class="hint">Enter domain to block (e.g., tracker.example.com)</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Current Blacklist</div>
+        <div class="domain-list" id="blList"><div class="empty-state">No custom domains added yet.</div></div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS PAGE -->
+    <div class="page" id="page-analytics">
+      <div class="page-title">Analytics &amp; Statistics</div>
+      <div class="page-subtitle">Overview of blocked trackers</div>
+      <div class="stats-grid">
+        <div class="stat-box"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total Blocked</div></div>
+        <div class="stat-box"><div class="stat-num" id="statToday">0</div><div class="stat-label">Today Blocked</div></div>
+        <div class="stat-box"><div class="stat-num" id="statUnique">0</div><div class="stat-label">Unique Trackers</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Top 20 Blocked Trackers</div>
+        <div id="trackerTableWrap">
+          <div class="empty-state">No tracking data available yet. Browse some websites to see results.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMPORT/EXPORT PAGE -->
+    <div class="page" id="page-importexport">
+      <div class="page-title">Import &amp; Export</div>
+      <div class="page-subtitle">Backup and restore your settings</div>
+      <div class="card">
+        <div class="card-title">Export Your Data</div>
+        <div class="export-btns">
+          <button class="export-btn" id="exportStats">📊 EXPORT STATISTICS</button>
+          <button class="export-btn" id="exportWhitelist">✅ EXPORT WHITELIST</button>
+          <button class="export-btn" id="exportBlacklist">❌ EXPORT BLACKLIST</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Import Data</div>
+        <div class="import-zone">
+          <input type="file" id="importFileInput" accept=".json">
+          <label for="importFileInput">📂 CHOOSE FILE TO IMPORT<br><span style="font-size:11px; color:#334155;">Upload previously exported JSON files to import settings</span></label>
+        </div>
+      </div>
+      <div class="card danger-card">
+        <div class="card-title">⚠️ Danger Zone</div>
+        <p style="font-size:13px; color:#94a3b8; margin-bottom:14px;">Clear all data from Privacy Shield (this cannot be undone)</p>
+        <button class="btn btn-danger" id="clearAllBtn">🗑️ CLEAR ALL DATA</button>
+      </div>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div class="page" id="page-about">
+      <div class="page-title">About Privacy Shield</div>
+      <div class="page-subtitle">v1.0.1</div>
+
+      <div class="card">
+        <div class="card-title">What is Privacy Shield?</div>
+        <p style="font-size:13px; color:#94a3b8; line-height:1.6;">
+          Privacy Shield is a privacy-focused browser extension that blocks known tracking scripts and domains in real-time.
+          It helps protect your privacy by preventing companies from tracking your online activities.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Features</div>
+        <div class="about-feature"><span class="about-icon">🛡️</span><span>Blocks known advertising and analytics trackers</span></div>
+        <div class="about-feature"><span class="about-icon">📊</span><span>Real-time statistics of blocked trackers</span></div>
+        <div class="about-feature"><span class="about-icon">✅</span><span>Whitelist domains where trackers should not be blocked</span></div>
+        <div class="about-feature"><span class="about-icon">❌</span><span>Add custom tracking domains to your blacklist</span></div>
+        <div class="about-feature"><span class="about-icon">📦</span><span>Export and import your settings</span></div>
+        <div class="about-feature"><span class="about-icon">🔢</span><span>Badge counter showing blocked requests per tab</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Tracked Domains (Sample)</div>
+        <p style="font-size:12px; color:#64748b; margin-bottom:10px;">The extension blocks requests to these common tracking services:</p>
+        <div id="staticDomainTags"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Privacy Notice</div>
+        <p style="font-size:13px; color:#94a3b8; line-height:1.6;">
+          Your data is stored locally on your device. We never send your browsing data to any external servers.
+          All statistics and settings are kept private.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Permissions</div>
+        <div class="perm-item"><span class="perm-name">storage</span>: To save your whitelist, blacklist, and statistics</div>
+        <div class="perm-item"><span class="perm-name">declarativeNetRequest</span>: To block tracking requests</div>
+        <div class="perm-item"><span class="perm-name">tabs</span>: To detect which website you're visiting</div>
+      </div>
+    </div>
+
+  </main>
+
+  <div class="toast" id="toast"></div>
+  <script src="options.js"></script>
+</body>
+</html>

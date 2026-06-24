@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Privacy Shield</title>
+  <style>
+    body { width: 320px; font-family: Arial, sans-serif; background: #1e3a8a; color: white; margin: 0; padding: 0; overflow: hidden; }
+    .header { display: flex; justify-content: space-between; padding: 15px; background: #172554; align-items: center; }
+    .brand { font-weight: bold; font-size: 14px; color: #38bdf8; display: flex; align-items: center; gap: 8px; }
+    .toggle { position: relative; width: 40px; height: 22px; cursor: pointer; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; inset: 0; background: #475569; border-radius: 22px; transition: 0.3s; }
+    .slider::before { content: ""; position: absolute; width: 16px; height: 16px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s; }
+    input:checked + .slider { background: #38bdf8; }
+    input:checked + .slider::before { transform: translateX(18px); }
+    .stats { text-align: center; padding: 20px; }
+    .circle { width: 90px; height: 90px; border: 3px solid #38bdf8; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; margin: 0 auto 10px; box-shadow: 0 0 15px rgba(56,189,248,0.3); }
+    .circle.disabled { border-color: #64748b; box-shadow: none; color: #64748b; }
+    .status { font-size: 11px; color: #34d399; margin-top: 10px; }
+    .controls { padding: 15px; background: #1e293b; }
+    .label { font-size: 10px; color: #94a3b8; text-transform: uppercase; margin-bottom: 8px; font-weight: bold; }
+    .input-box { width: 100%; padding: 8px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 4px; box-sizing: border-box; font-size:12px; }
+    .btn-row { display: flex; gap: 10px; margin-top: 10px; }
+    .btn { flex: 1; padding: 8px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; color: white; font-size:11px; }
+    .btn-allow { background: #34d399; }
+    .btn-block { background: #f87171; }
+    .rules-container { margin-top: 15px; max-height: 80px; overflow-y: auto; }
+    .footer { padding: 10px 15px; background: #0f172a; display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: #64748b; }
+    .footer-stats { display: flex; gap: 10px; align-items: center; }
+    .footer-stat { color: #94a3b8; }
+    .footer-stat span { color: #38bdf8; font-weight: bold; }
+    .footer-divider { color: #334155; }
+    .link { color: #38bdf8; cursor: pointer; text-decoration: none; border: none; background: none; font-size:10px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="brand">PRIVACY SHIELD</div>
+    <label class="toggle">
+      <input type="checkbox" id="toggleSwitch" checked>
+      <span class="slider"></span>
+    </label>
+  </div>
+  <div class="stats">
+    <div class="circle" id="counterRing"><span id="blockCounter">0</span></div>
+    <div style="font-size:10px; color:#94a3b8; letter-spacing:1px;">BLOCKED ON THIS PAGE</div>
+    <div class="status" id="statusBar">Privacy Shield is active</div>
+  </div>
+  <div class="controls">
+    <div class="label">Custom Domain Rule</div>
+    <input type="text" class="input-box" id="domainInput" placeholder="e.g. tracker.example.com">
+    <div class="btn-row">
+      <button class="btn btn-allow" id="allowBtn">ALLOW</button>
+      <button class="btn btn-block" id="blockBtn">BLOCK</button>
+    </div>
+    <div class="rules-container" id="rulesList"></div>
+  </div>
+  <div class="footer">
+    <div class="footer-stats">
+      <span class="footer-stat" id="footerStats">Total: 0</span>
+      <span class="footer-divider">|</span>
+      <span class="footer-stat" id="footerToday">Today: 0</span>
+    </div>
+    <button class="link" id="optionsBtn">Settings</button>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
