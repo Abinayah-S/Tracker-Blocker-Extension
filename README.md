@@ -108,6 +108,7 @@ tracker-blocker/
 │   └── icon128.png
 ├── images
 └── README.md                  # This file
+└── PrivacyShield_Report.pdf   # Report of this project
 ```
 
 How It Works:
